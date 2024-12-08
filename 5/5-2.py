@@ -19,13 +19,14 @@ for rule in rules:
     ruledict[rule[1]].append(rule[0])
 
 def validateOrder(update):
+    b = True
     for n, page in enumerate(update):
         valid = ruledict.get(page, [])
         for m, p in enumerate(update[n+1:]):
             if p not in valid:
                 update.insert(m, update.pop(n+m+1))
-                return False
-    return True
+                b = False
+    return b
         
 for update in updates:
     order = validateOrder(update)
